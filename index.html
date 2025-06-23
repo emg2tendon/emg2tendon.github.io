@@ -1,86 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMG2Tendon Project</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-        header {
-            background-color: #4CAF50;
-            padding: 20px;
-            text-align: center;
-            color: white;
-        }
 
-        main {
-            padding: 40px;
-            max-width: 800px;
-            margin: auto;
-        }
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        section {
-            margin-bottom: 40px;
-        }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #eee;
-            color: #666;
-        }
-    </style>
+  <title>emg2tendon: From sEMG Signals to Tendon Control in Musculoskeletal Hands</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
 </head>
 
 <body>
-    <header>
-        <h1>EMG2Tendon</h1>
-        <p>Bridging EMG signals to Tendon Dynamics</p>
-    </header>
-    <main>
-        <section>
-            <h2>About the Project</h2>
-            <p><strong>EMG2Tendon</strong> aims to decode tendon movement and control from surface EMG signals.
-                Combining supervised learning with reinforcement learning, the project models the tendon dynamics (x2)
-                from EMG (x1) to predict hand poses (y) effectively. A MuJoCo-based simulation is used to learn the
-                tendon mechanics in a physics-consistent manner.</p>
-        </section>
 
-        <section>
-            <h2>Why EMG2Tendon?</h2>
-            <p>Traditional prosthetics often struggle with intuitive control. By directly mapping muscle signals to
-                tendon behaviors, EMG2Tendon enables finer, more natural control of prosthetic and exoskeleton devices,
-                opening up new possibilities for assistive technology and human augmentation.</p>
-        </section>
 
-        <section>
-            <h2>Technical Approach</h2>
-            <ul>
-                <li>Supervised learning for EMG-to-hand pose prediction (x1 &#8594; y)</li>
-                <li>Reinforcement learning for tendon behavior modeling (x2 &#8594; y)</li>
-                <li>Joint optimization to infer tendon states x2 from EMG x1 without direct supervision</li>
-                <li>Simulation in MuJoCo for tendon physics validation</li>
-            </ul>
-        </section>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">emg2tendon: From sEMG Signals to Tendon Control in
+              Musculoskeletal Hands</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://sagarverma.pro/" target="_blank">Sagar Verma</a></span>
+            </div>
 
-        <section>
-            <h2>Get Involved</h2>
-            <p>If you're interested in prosthetics, exoskeletons, reinforcement learning, or biomechanical modeling,
-                we'd love to collaborate! Reach out to us on GitHub or join our discussions through Issues and Pull
-                Requests.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 EMG2Tendon Project. All rights reserved.</p>
-    </footer>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Micropilot<br>RSS 2025</span </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- Arxiv PDF link -->
+                  <span class="link-block">
+                    <a href="https://openreview.net/pdf?id=CUyRzCSTEO" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+
+                  <!-- Supplementary PDF link -->
+                  <!-- <span class="link-block">
+                    <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/micropilot/emg2tendon" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+
+                  <!-- ArXiv abstract Link -->
+                  <!-- <span class="link-block">
+                    <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                      </span>
+                      <span>arXiv</span>
+                    </a>
+                  </span> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video poster="" id="tree" autoplay controls muted loop height="100%">
+          <!-- Your video here -->
+          <source src="static/videos/banner_video.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered">
+          This video introduces the motivation behind the work. It contrasts joint-actuated and
+          tendon-driven robotic hands with natural human hand motion, highlighting the advantages of tendon-driven
+          systems in achieving biomechanical realism and dexterity. The animation demonstrates the limitations of
+          vision-based pose tracking using motion capture, and presents surface EMG (sEMG) as a robust alternative for
+          capturing neuromuscular activity. The final sequence shows how sEMG signals, recorded from the wrist, are
+          mapped to tendon control forces using the MyoHand musculoskeletal model, enabling responsive and accurate
+          control of robotic hands.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Tendon-driven robotic hands offer unparalleled dexterity for manipulation tasks, but learning control
+              policies for such systems presents unique challenges. Unlike joint-actuated robotic hands, tendon-driven
+              systems lack a direct one-to-one mapping between motion capture (mocap) data and tendon controls, making
+              the learning process complex and expensive. Additionally, visual tracking methods for real-world
+              applications are prone to occlusions and inaccuracies, further complicating joint tracking. Wrist-wearable
+              surface electromyography (sEMG) sensors present an inexpensive, robust alternative to capture hand motion.
+              However, mapping sEMG signals to tendon control remains a significant challenge despite the availability
+              of EMG-to-pose data sets and regression-based models in the existing literature.
+              <br>
+              <br>
+              We introduce the first large-scale EMG-to-Tendon Control dataset for robotic hands, extending the
+              \emph{emg2pose} dataset, which includes recordings from 193 subjects, spanning 370 hours and 29 stages
+              with diverse gestures. This dataset incorporates tendon control signals derived using the MyoSuite MyoHand
+              model, addressing limitations such as invalid poses in prior methods. We provide three baseline regression
+              models to demonstrate \emph{emg2tendon} utility and propose a novel diffusion-based regression model for
+              predicting tendon control from sEMG recordings. This dataset and modeling framework marks a significant
+              step forward for tendon-driven dexterous robotic manipulation, laying the groundwork for scalable and
+              accurate tendon control in robotic hands.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+
+  <!-- End image carousel -->
+
+
+
+
+  <!-- Youtube video -->
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container">
+        <!-- Paper video. -->
+        <h2 class="title is-3">Video Presentation</h2>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+
+            <div class="publication-video">
+              <!-- Youtube embed code here -->
+              <video poster="" id="tree" autoplay controls muted loop height="100%">
+                <!-- Your video here -->
+                <source src="static/videos/talk.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End youtube video -->
+
+
+  <!-- Video carousel -->
+
+  <!-- End video carousel -->
+
+
+
+
+
+
+  <!-- Paper poster -->
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title">Poster</h2>
+
+        <iframe src="static/pdfs/RSS_2025_EMG2Tendon_compressed.pdf" width="100%" width="50%" , height="550">
+        </iframe>
+
+      </div>
+    </div>
+  </section>
+  <!--End paper poster -->
+
+
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@inproceedings{verma2025emg2tendon,
+        title        = {{emg2tendon: From sEMG Signals to Tendon Control in Musculoskeletal Hands}},
+        author       = {{Sagar Verma}},
+        year         = 2025,
+        booktitle    = {Robotics: Science and Systems}
+      }</code></pre>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+
+
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
 </body>
 
 </html>
