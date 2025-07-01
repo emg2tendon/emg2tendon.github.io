@@ -5,28 +5,32 @@
   <meta charset="utf-8">
   <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
-  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <meta name="description"
+    content="emg2tendon: From sEMG Signals to Tendon Control in Musculoskeletal Hands - First large-scale EMG-to-Tendon Control dataset for robotic hands with 193 subjects, 370 hours of data across 29 gesture stages.">
+  <meta property="og:title" content="emg2tendon: From sEMG Signals to Tendon Control in Musculoskeletal Hands" />
+  <meta property="og:description"
+    content="First large-scale EMG-to-Tendon Control dataset for robotic hands with 193 subjects, 370 hours of data across 29 gesture stages." />
+  <meta property="og:url" content="https://emg2tendon.github.io" />
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image" content="static/images/letter_logo.svg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
 
-  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
-  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <meta name="twitter:title" content="emg2tendon: From sEMG Signals to Tendon Control in Musculoskeletal Hands">
+  <meta name="twitter:description"
+    content="First large-scale EMG-to-Tendon Control dataset for robotic hands with 193 subjects, 370 hours of data across 29 gesture stages.">
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:image" content="static/images/letter_logo.svg">
   <meta name="twitter:card" content="summary_large_image">
   <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="keywords"
+    content="EMG, tendon control, robotic hands, musculoskeletal, MyoHand, surface electromyography, robotics, RSS 2025">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
   <title>emg2tendon: From sEMG Signals to Tendon Control in Musculoskeletal Hands</title>
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="static/images/letter_logo.svg">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -89,7 +93,7 @@
 
                   <!-- Github link -->
                   <span class="link-block">
-                    <a href="https://github.com/micropilot/emg2tendon" target="_blank"
+                    <a href="https://github.com/micropilot/pose2tendon_ID" target="_blank"
                       class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">
                         <i class="fab fa-github"></i>
@@ -173,74 +177,576 @@
   </section>
   <!-- End paper abstract -->
 
+  <!-- Generate Tendon Data -->
+  <section class="section is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Generate Tendon Data</h2>
+          <div class="content has-text-justified">
+            <p>
+              Our <strong>QForce Tendon Implementation</strong> provides a high-performance C++ solution for converting
+              motion capture (MoCap) pose data to tendon control forces for anthropomorphic hand control like MyoHand
+              (MyoSuite). This implementation achieves a <strong>20x speed improvement</strong> compared to Python
+              versions and has successfully processed <strong>1700 hours of MoCap data in just 24 hours</strong> on a
+              48-core CPU.
+            </p>
 
+            <h3 class="title is-4">Key Features</h3>
+            <ul>
+              <li><strong>High Performance:</strong> C++ implementation with 20x speed improvement over Python</li>
+              <li><strong>Scalable Processing:</strong> Handles large-scale datasets efficiently</li>
+              <li><strong>Robust Algorithm:</strong> QForce tendon algorithm with inverse dynamics and muscle modeling
+              </li>
+              <li><strong>Video Generation:</strong> Built-in comparison video generation between reference and achieved
+                trajectories</li>
+              <li><strong>Cross-Platform:</strong> Supports Linux, macOS, and Windows</li>
+            </ul>
 
-  <!-- End image carousel -->
+            <h3 class="title is-4">Quick Start</h3>
+            <div class="notification is-info is-light">
+              <strong>Prerequisites:</strong> C++ compiler (GCC 7+ or Clang 6+), CMake 3.16+, Python 3.7+, MuJoCo, OSQP,
+              and HDF5 libraries.
+            </div>
 
+            <h4 class="title is-5">Installation</h4>
+            <pre><code># Clone the repository
+git clone https://github.com/micropilot/pose2tendon_ID
+cd pose2tendon_ID
 
+# Install system dependencies (Ubuntu/Debian)
+sudo apt update
+sudo apt install build-essential cmake libhdf5-dev
 
+# Install MuJoCo and OSQP (see full README for details)
+# Build the project
+mkdir build && cd build
+cmake ..
+make -j$(nproc)</code></pre>
 
-  <!-- Youtube video -->
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container">
-        <!-- Paper video. -->
-        <h2 class="title is-3">Video Presentation</h2>
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
+            <h4 class="title is-5">Usage</h4>
+            <pre><code># Process HDF5 trajectory data
+./qforce_tendon ../data/sample.hdf5 ../output/
 
-            <div class="publication-video">
-              <!-- Youtube embed code here -->
-              <video poster="" id="tree" autoplay controls muted loop height="100%">
-                <!-- Your video here -->
-                <source src="static/videos/talk.mp4" type="video/mp4">
-              </video>
+# Generate comparison videos
+python generate_video.py --bin_path ../output/sample.bin \
+                        --hdf5_path ../data/sample.hdf5 \
+                        --output_path ../videos/</code></pre>
+
+            <h3 class="title is-4">Algorithm Overview</h3>
+            <p>
+              The QForce tendon algorithm processes trajectory data through several stages:
+            </p>
+            <ol>
+              <li><strong>Trajectory Processing:</strong> Reads joint angles and time from HDF5 compound dataset</li>
+              <li><strong>Inverse Dynamics:</strong> Computes generalized forces for target positions</li>
+              <li><strong>Muscle Modeling:</strong> Applies tendon dynamics and muscle properties</li>
+              <li><strong>Quadratic Programming:</strong> Solves for optimal control signals using OSQP</li>
+              <li><strong>Control Generation:</strong> Produces actuator control values</li>
+            </ol>
+
+            <h3 class="title is-4">Performance</h3>
+            <ul>
+              <li><strong>Processing Speed:</strong> ~1000 trajectory points per second</li>
+              <li><strong>Memory Usage:</strong> ~50MB for 100k trajectory points</li>
+              <li><strong>Video Generation:</strong> ~30 seconds for 100k points (25 FPS output)</li>
+            </ul>
+
+            <div class="has-text-centered">
+              <a href="https://github.com/micropilot/pose2tendon_ID" target="_blank" class="button is-medium is-dark">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>View on GitHub</span>
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- End youtube video -->
+  <!-- End Generate Tendon Data -->
 
+  <!-- Dataset Videos -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Dataset Videos</h2>
+          <div class="content has-text-justified">
+            <p>
+              Our EMG-to-Tendon Control dataset includes recordings from 193 subjects spanning 370 hours across 29
+              diverse gesture stages. Below are sample videos showcasing the variety of hand movements and gestures
+              captured in our dataset.
+            </p>
+          </div>
 
-  <!-- Video carousel -->
+          <div class="columns is-multiline">
+            <!-- ThumbsUpDownThumbRotationsCWCCWP -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Thumbs Up/Down & Rotations</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-8125c-cv-emg-pose-train@2-recording-1_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
-  <!-- End video carousel -->
+            <!-- HookEmHornsOKScissors -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Hook 'Em, OK, Scissors</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-8125c-cv-emg-pose-train@2-recording-12_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
+            <!-- unconstrained -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Unconstrained Movement</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-8125c-cv-emg-pose-train@2-recording-16_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
+            <!-- ThumbsSwipesWholeHand -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Thumb Swipes & Whole Hand</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-8125c-cv-emg-pose-train@2-recording-3_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
+            <!-- TwoHandedFreeStyle -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Two-Handed Free Style</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-1_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
+            <!-- GraspPunchCloseFar -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Grasp, Punch, Close/Far</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-10_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
+            <!-- PokeDrawPinchRotateclosefar -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Poke, Draw, Pinch, Rotate</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-12_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
-  <!-- Paper poster -->
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container">
-        <h2 class="title">Poster</h2>
+            <!-- AllFingerPinchesThumbSwipeThumbRotate -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">All Finger Pinches & Thumb Actions</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-15_right_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
-        <iframe src="static/pdfs/RSS_2025_EMG2Tendon_compressed.pdf" width="100%" width="50%" , height="550">
-        </iframe>
+            <!-- CountingUpDownFingerWigglingSpreading -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Counting & Finger Movements</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-16_right_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
 
+            <!-- OneHandedFreeStyle -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">One-Handed Free Style</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-19_right_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- IndexPinchesMiddlePinchesThumbswipes -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Index & Middle Pinches</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-2_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- DoorknobFingerGraspFistGrab -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Doorknob, Grasp, Fist</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-4_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- FastPongFronthandBackhandThrowing -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Fast Pong & Throwing</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-5_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- HandDeskSeparateClaspedChest -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Hand Desk & Clasped Chest</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-7_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- PokePinchCloseFar -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Poke & Pinch Close/Far</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-a9a00-cv-emg-pose-demonstration@2-recording-8_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- FingerTouchPalmClapmrburns -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Finger Touch & Palm Clap</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-ba554-cv-emg-pose-demonstration@2-recording-19_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- HandClawGraspFlicks -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Hand Claw, Grasp, Flicks</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-faa8b-cv-emg-pose-train@2-recording-10_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- ShakaVulcanPeace -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Shaka, Vulcan, Peace</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-faa8b-cv-emg-pose-train@2-recording-11_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- CountingUpDownFaceSideAway -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Counting Face/Side/Away</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-faa8b-cv-emg-pose-train@2-recording-2_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- FingerWigglingSpreading -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Finger Wiggling & Spreading</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-faa8b-cv-emg-pose-train@2-recording-4_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- FingerAbductionSeries -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Finger Abduction Series</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-faa8b-cv-emg-pose-train@2-recording-5_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- FingerPinchesSingleFingerPinchesMultiple -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Single & Multiple Finger Pinches</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-faa8b-cv-emg-pose-train@2-recording-6_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- FingerFreeform -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Finger Freeform</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-faa8b-cv-emg-pose-train@2-recording-7_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- IndividualFingerPointingSnap -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Individual Finger Pointing & Snap</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-07-1649318400-faa8b-cv-emg-pose-train@2-recording-8_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- WristFlexionAbduction -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Wrist Flexion & Abduction</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-12-1649750400-2f899-cv-emg-pose-train@2-recording-6_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- PlayBlocksChess -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Play Blocks & Chess</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-13-1649836800-04d0a-cv-emg-pose-demonstration@2-recording-19_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- CoffeePanicPete -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Coffee Panic Pete</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-04-13-1649836800-6e2c7-cv-emg-pose-demonstration@2-recording-21_left_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- HandOverHandAllFingerPinchesThumbSwipeThumbRotate -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Hand-over-Hand Pinches & Thumb Actions</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-06-08-1654675200-17ba6-cv-emg-pose-demonstration@2-recording-19_right_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+
+            <!-- HandOverHandCountingUpDownFingerWigglingSpreading -->
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-content">
+                  <h4 class="title is-5">Hand-over-Hand Counting & Finger Movements</h4>
+                  <video controls muted loop style="width: 100%; height: 180px; object-fit: contain;">
+                    <source
+                      src="static/videos/2022-06-08-1654675200-17ba6-cv-emg-pose-demonstration@2-recording-20_right_compressed.mp4"
+                      type="video/mp4">
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-  <!--End paper poster -->
+  <!-- End Dataset Videos -->
+
+  <!-- Video Presentation -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Video Presentation</h2>
+          <div class="publication-video">
+            <video poster="" id="tree" autoplay controls muted loop style="width: 100%; height: 400px;">
+              <source src="static/videos/talk.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Video Presentation -->
+
+
+  <!-- Paper poster -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Poster</h2>
+          <iframe src="static/pdfs/RSS2025_Poster.pdf" width="100%" height="550" style="border: none;">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Paper Poster -->
 
 
   <!--BibTex citation -->
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
+      <h2 class="title is-3">BibTeX</h2>
       <pre><code>@inproceedings{verma2025emg2tendon,
         title        = {{emg2tendon: From sEMG Signals to Tendon Control in Musculoskeletal Hands}},
         author       = {{Sagar Verma}},
         year         = 2025,
         booktitle    = {Robotics: Science and Systems}
+      }
+
+@inproceedings{verma2025emg,
+        title        = {{EMG} Signals to Tendon Control Forces for MyoHand Actuation},
+        author       = {{Sagar Verma}},
+        year         = 2025,
+        booktitle    = {Conference on Soft Robotics}
       }</code></pre>
     </div>
   </section>
-  <!--End BibTex citation -->
+  <!--End BibTeX citation -->
 
 
 
