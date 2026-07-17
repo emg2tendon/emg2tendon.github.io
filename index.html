@@ -91,14 +91,36 @@
                     </a>
                   </span> -->
 
-                  <!-- Github link -->
+                  <!-- Github link (Pose -> Tendon inverse dynamics) -->
                   <span class="link-block">
                     <a href="https://github.com/micropilot/pose2tendon_ID" target="_blank"
                       class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">
                         <i class="fab fa-github"></i>
                       </span>
-                      <span>Code</span>
+                      <span>Pose&#8594;Tendon Code</span>
+                    </a>
+                  </span>
+
+                  <!-- Github link (EMG -> Tendon models) -->
+                  <span class="link-block">
+                    <a href="https://github.com/sagarverma/emg2tendon" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>EMG&#8594;Tendon Models</span>
+                    </a>
+                  </span>
+
+                  <!-- Pretrained weights -->
+                  <span class="link-block">
+                    <a href="https://github.com/sagarverma/emg2tendon/releases/tag/v1.0" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-database"></i>
+                      </span>
+                      <span>Weights</span>
                     </a>
                   </span>
 
@@ -266,6 +288,177 @@ python generate_video.py --bin_path ../output/sample.bin \
     </div>
   </section>
   <!-- End Generate Tendon Data -->
+
+  <!-- EMG -> Tendon Models, Weights & Results -->
+  <section class="section is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">EMG &#8594; Tendon Models</h2>
+          <div class="content has-text-justified">
+            <p>
+              We train and release four sequence-to-sequence models that map 16-channel sEMG (2&nbsp;kHz) to the
+              39-dimensional MyoHand tendon-control signal: three convolutional baselines &mdash; <b>TDS</b>
+              (time&ndash;depth-separable), <b>NeuroPose</b> (encoder&ndash;decoder ResNet) and
+              <b>SensingDynamics</b> (dilated temporal conv) &mdash; and a <b>Conditional Latent Diffusion Model
+              (CLDM)</b> that diffuses the tendon latent conditioned on the sEMG latent. All models are trained on the
+              full <b>25,253-recording</b> dataset (193 subjects, ~370&nbsp;h). Training code, configs and pretrained
+              weights are released below.
+            </p>
+          </div>
+
+          <div class="buttons is-centered">
+            <a href="https://github.com/sagarverma/emg2tendon" target="_blank"
+              class="button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span><span>Training code</span>
+            </a>
+            <a href="https://github.com/sagarverma/emg2tendon/releases/tag/v1.0" target="_blank"
+              class="button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-database"></i></span><span>Pretrained weights</span>
+            </a>
+          </div>
+
+          <div class="content">
+            <p>
+              We evaluate in <b>pose space</b>: each model's predicted tendon signal is forward-simulated through the
+              MyoHand and the resulting hand pose is compared to the ground-truth pose (mean joint angular error, in
+              degrees). As a reference, forward-simulating the <i>ground-truth</i> tendons reproduces the pose to
+              <b>0.11&deg;</b> per step, but open-loop rollout from perfect tendons still drifts to <b>~14&deg;</b>
+              (a physical ceiling set by muscle dynamics). The learned models land within ~1&ndash;2&deg; of that ceiling.
+            </p>
+          </div>
+
+          <div class="table-container">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Type</th>
+                  <th>Tendon val&nbsp;RMSE</th>
+                  <th>Open-loop pose error</th>
+                  <th>Weights</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i>Ground-truth tendons (ceiling)</i></td>
+                  <td><i>inverse dynamics</i></td>
+                  <td><i>&mdash;</i></td>
+                  <td><i>~14.0&deg;</i></td>
+                  <td><i>&mdash;</i></td>
+                </tr>
+                <tr>
+                  <td>NeuroPose</td>
+                  <td>conv encoder&ndash;decoder</td>
+                  <td>0.308</td>
+                  <td>15.1&ndash;16.2&deg;</td>
+                  <td><a href="https://github.com/sagarverma/emg2tendon/releases/download/v1.0/neuropose.ckpt">neuropose.ckpt</a></td>
+                </tr>
+                <tr>
+                  <td>SensingDynamics</td>
+                  <td>dilated temporal conv</td>
+                  <td>0.308</td>
+                  <td>15.1&ndash;16.2&deg;</td>
+                  <td><a href="https://github.com/sagarverma/emg2tendon/releases/download/v1.0/sensingdynamics.ckpt">sensingdynamics.ckpt</a></td>
+                </tr>
+                <tr>
+                  <td>TDS</td>
+                  <td>time&ndash;depth separable conv</td>
+                  <td>0.310</td>
+                  <td>15.1&ndash;16.2&deg;</td>
+                  <td><a href="https://github.com/sagarverma/emg2tendon/releases/download/v1.0/tds.ckpt">tds.ckpt</a></td>
+                </tr>
+                <tr>
+                  <td>CLDM</td>
+                  <td>conditional latent diffusion</td>
+                  <td>0.440</td>
+                  <td>16.8&ndash;17.6&deg;</td>
+                  <td><a href="https://github.com/sagarverma/emg2tendon/releases/download/v1.0/cldm.ckpt">cldm.ckpt</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="title is-4" style="margin-top: 2rem;">Successes &amp; Failures</h3>
+          <div class="content has-text-justified">
+            <p>
+              Each clip shows the same recording rendered twice: <b>left = ground-truth pose</b>,
+              <b>right = pose achieved by the model's predicted tendons</b> (open-loop forward simulation through the
+              MyoHand). On a well-conditioned recording the convolutional baselines track the reference closely; on a
+              fast, unconstrained recording all models drift, and the diffusion model (CLDM) &mdash; undertrained here
+              &mdash; drifts most.
+            </p>
+          </div>
+
+          <h4 class="title is-5" style="margin-top: 1rem;">Success &mdash; unconstrained recording (baselines near the ceiling)</h4>
+          <div class="columns is-multiline">
+            <div class="column is-6">
+              <div class="card"><div class="card-content">
+                <h5 class="title is-6">SensingDynamics &mdash; 13.4&deg;</h5>
+                <video controls muted loop style="width: 100%; object-fit: contain;">
+                  <source src="static/videos/models/sensingdynamics_rec2.mp4" type="video/mp4"></video>
+              </div></div>
+            </div>
+            <div class="column is-6">
+              <div class="card"><div class="card-content">
+                <h5 class="title is-6">NeuroPose &mdash; 13.6&deg;</h5>
+                <video controls muted loop style="width: 100%; object-fit: contain;">
+                  <source src="static/videos/models/neuropose_rec2.mp4" type="video/mp4"></video>
+              </div></div>
+            </div>
+            <div class="column is-6">
+              <div class="card"><div class="card-content">
+                <h5 class="title is-6">TDS &mdash; 13.8&deg;</h5>
+                <video controls muted loop style="width: 100%; object-fit: contain;">
+                  <source src="static/videos/models/tds_rec2.mp4" type="video/mp4"></video>
+              </div></div>
+            </div>
+            <div class="column is-6">
+              <div class="card"><div class="card-content">
+                <h5 class="title is-6">CLDM &mdash; 16.7&deg;</h5>
+                <video controls muted loop style="width: 100%; object-fit: contain;">
+                  <source src="static/videos/models/cldm_rec2.mp4" type="video/mp4"></video>
+              </div></div>
+            </div>
+          </div>
+
+          <h4 class="title is-5" style="margin-top: 1rem;">Failure &mdash; fast/hard recording (all models drift)</h4>
+          <div class="columns is-multiline">
+            <div class="column is-6">
+              <div class="card"><div class="card-content">
+                <h5 class="title is-6">TDS &mdash; 18.1&deg;</h5>
+                <video controls muted loop style="width: 100%; object-fit: contain;">
+                  <source src="static/videos/models/tds_rec1.mp4" type="video/mp4"></video>
+              </div></div>
+            </div>
+            <div class="column is-6">
+              <div class="card"><div class="card-content">
+                <h5 class="title is-6">NeuroPose &mdash; 18.3&deg;</h5>
+                <video controls muted loop style="width: 100%; object-fit: contain;">
+                  <source src="static/videos/models/neuropose_rec1.mp4" type="video/mp4"></video>
+              </div></div>
+            </div>
+            <div class="column is-6">
+              <div class="card"><div class="card-content">
+                <h5 class="title is-6">SensingDynamics &mdash; 18.8&deg;</h5>
+                <video controls muted loop style="width: 100%; object-fit: contain;">
+                  <source src="static/videos/models/sensingdynamics_rec1.mp4" type="video/mp4"></video>
+              </div></div>
+            </div>
+            <div class="column is-6">
+              <div class="card"><div class="card-content">
+                <h5 class="title is-6">CLDM &mdash; 18.8&deg;</h5>
+                <video controls muted loop style="width: 100%; object-fit: contain;">
+                  <source src="static/videos/models/cldm_rec1.mp4" type="video/mp4"></video>
+              </div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End EMG -> Tendon Models -->
 
   <!-- Dataset Videos -->
   <section class="section">
